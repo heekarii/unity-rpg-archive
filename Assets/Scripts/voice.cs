@@ -4,13 +4,12 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mime;
 using Application = UnityEngine.Application;
 
 public class VoiceRecorder : MonoBehaviour
 {
     public Button recordButton;
-    public MediaTypeNames.Text _responseText;
+    public Text responseText; // Changed
     public Dropdown microphoneDropdown;
 
     private AudioClip audioClip;
@@ -57,14 +56,14 @@ public class VoiceRecorder : MonoBehaviour
     {
         isRecording = true;
         audioClip = Microphone.Start(selectedMicrophone, false, 10, 44100);
-        recordButton.GetComponentInChildren<MediaTypeNames.Text>().text = "Stop Recording";
+        recordButton.GetComponentInChildren<Text>().text = "Stop Recording"; // Changed
     }
 
     public void StopRecording()
     {
         isRecording = false;
         Microphone.End(selectedMicrophone);
-        recordButton.GetComponentInChildren<MediaTypeNames.Text>().text = "Start Recording";
+        recordButton.GetComponentInChildren<Text>().text = "Start Recording"; // Changed
     }
 
     public IEnumerator SendAudioToServer()
@@ -111,7 +110,7 @@ public class VoiceRecorder : MonoBehaviour
             else
             {
                 string response = www.downloadHandler.text;
-                responseText.text = response;
+                responseText.text = response; // Changed
             }
         }
     }
