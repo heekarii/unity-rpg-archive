@@ -4,26 +4,25 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Mime;
 using Application = UnityEngine.Application;
 
-public class VoiceRecorder : MonoBehaviour
+public class Voice : MonoBehaviour // Changed the class name to Voice
 {
-    public Button recordButton;
-    public MediaTypeNames.Text _responseText;
-    public Dropdown microphoneDropdown;
+    public Button recordButton; // Added
+    public Text responseText; // Added
+    public Dropdown microphoneDropdown; // Added
 
-    private AudioClip audioClip;
-    private bool isRecording = false;
-    private string selectedMicrophone;
+    private AudioClip audioClip; // Added
+    private bool isRecording = false; // Added
+    private string selectedMicrophone; // Added
 
     void Start()
     {
-        recordButton.onClick.AddListener(OnRecordButtonClick);
-        PopulateMicrophoneDropdown();
+        recordButton.onClick.AddListener(OnRecordButtonClick); // Added
+        PopulateMicrophoneDropdown(); // Added
     }
 
-    void PopulateMicrophoneDropdown()
+    void PopulateMicrophoneDropdown() // Added method
     {
         microphoneDropdown.ClearOptions();
         List<string> options = new List<string>(Microphone.devices);
@@ -35,12 +34,12 @@ public class VoiceRecorder : MonoBehaviour
         microphoneDropdown.onValueChanged.AddListener(delegate { OnMicrophoneSelected(microphoneDropdown); });
     }
 
-    void OnMicrophoneSelected(Dropdown dropdown)
+    void OnMicrophoneSelected(Dropdown dropdown) // Added method
     {
         selectedMicrophone = dropdown.options[dropdown.value].text;
     }
 
-    public void OnRecordButtonClick()
+    public void OnRecordButtonClick() // Added method
     {
         if (!isRecording)
         {
@@ -53,21 +52,21 @@ public class VoiceRecorder : MonoBehaviour
         }
     }
 
-    public void StartRecording()
+    public void StartRecording() // Added method
     {
         isRecording = true;
         audioClip = Microphone.Start(selectedMicrophone, false, 10, 44100);
-        recordButton.GetComponentInChildren<MediaTypeNames.Text>().text = "Stop Recording";
+        recordButton.GetComponentInChildren<Text>().text = "Stop Recording"; // Added
     }
 
-    public void StopRecording()
+    public void StopRecording() // Added method
     {
         isRecording = false;
         Microphone.End(selectedMicrophone);
-        recordButton.GetComponentInChildren<MediaTypeNames.Text>().text = "Start Recording";
+        recordButton.GetComponentInChildren<Text>().text = "Start Recording"; // Added
     }
 
-    public IEnumerator SendAudioToServer()
+    public IEnumerator SendAudioToServer() // Added method
     {
         string filePath = Path.Combine(Application.persistentDataPath, "audio.wav");
         SaveWavFile(filePath, audioClip);
@@ -95,7 +94,7 @@ public class VoiceRecorder : MonoBehaviour
         Debug.Log("Temporary audio file deleted: " + filePath);
     }
 
-    public IEnumerator GetGPTResponse(string transcribedText)
+    public IEnumerator GetGPTResponse(string transcribedText) // Added method
     {
         WWWForm form = new WWWForm();
         form.AddField("prompt", transcribedText);
@@ -111,12 +110,12 @@ public class VoiceRecorder : MonoBehaviour
             else
             {
                 string response = www.downloadHandler.text;
-                responseText.text = response;
+                responseText.text = response; // Added
             }
         }
     }
 
-    public void SaveWavFile(string filePath, AudioClip clip)
+    public void SaveWavFile(string filePath, AudioClip clip) // Added method
     {
         byte[] wavFile = WavUtility.FromAudioClip(clip);
         File.WriteAllBytes(filePath, wavFile);
