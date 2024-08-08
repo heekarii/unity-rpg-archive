@@ -11,3 +11,11 @@
 
 1. main script와 scene script를 구분
 2. scene 넘어가는 기능 간단히 구현
+
+-----------------------------------------------------
+
+수정사항 24/8/8
+
+1. 유니티 실행시 voice.cs 클래스 오류, 네이밍 수정 (MediaTypesNames, ect)
+2. 음성 녹음을 위한 VoiceRecord Scene 생성과 해당 Scene의 Hierarchy 생성 및 정리
+3. 파일 충돌 문제 해결 및 ver0.1 -> main merge
