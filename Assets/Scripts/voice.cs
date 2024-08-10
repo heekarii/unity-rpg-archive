@@ -122,17 +122,17 @@ public class Voice : MonoBehaviour // Changed the class name to Voice
         Debug.Log("Audio file saved at: " + filePath);
     }
 }
-public class LanguageManager : MonoBehaviour // added, 씬 넘어갈 때 언어설정이 무너지지 않게 코드 추가함
+public class LanguageManager : MonoBehaviour // added
 {
     public static LanguageManager Instance { get; private set; }
-    public string CurrentLanguage { get; set; } = "Korean";
+    public string CurrentLanguage { get; set; } = "Korean"; 
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //, 씬 넘어갈 때 언어설정이 무너지지 않게 코드 추가함
         }
         else
         {
