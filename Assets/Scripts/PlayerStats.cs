@@ -7,7 +7,8 @@ public enum EStatType
     Health,
     Hunger,
     Cleanliness,
-    Magic
+    Magic,
+    Mental
 }
 
 public class PlayerStats : MonoBehaviour
@@ -27,48 +28,52 @@ public class PlayerStats : MonoBehaviour
         DontDestroyOnLoad(this);
     }
     
-    public int health;
-    public int hunger;
-    public int cleanliness;
-    public int magic;
+    public float health;
+    public float hunger;
+    public float cleanliness;
+    public float magic;
+    public float mental;
+    
     void Start()
     {
         health = 100;
         hunger = 100;
         cleanliness = 100;
+        mental = 100;
         magic = 0;
     }
     
-    public void IncreaseMagic()
-    {
-        magic += 5;
-    }
-    
     /// <summary>
-    /// 플레이어의 스탯을 감소시키는 함수
+    /// 플레이어의 스탯의 증감을 관리하는 함수<br>
+    /// </br>
+    /// 기본적으로 스탯을 증가시킵니다. 감소하고자 하는 경우 파라미터에 음수를 넣어주세요.
     /// </summary>
-    /// <param name="type">감소시킬 스탯의 타입</param>
-    /// <param name="amt">감소시킬 스탯의 양</param>
-    public void DecreaseStat(EStatType type, int amt)
+    /// <param name="type">변경할 스탯의 타입</param>
+    /// <param name="amt">변경할 스탯의 양</param>
+    public void StatControl(EStatType type, float amt)
     {
         switch (type)
         {
             case EStatType.Health:
-                health = Mathf.Max(health - amt, 0);
+                health = Mathf.Clamp(health + amt, 0, 100);
                 break;
             case EStatType.Hunger:
-                hunger = Mathf.Max(hunger - amt, 0);
+                hunger = Mathf.Clamp(hunger + amt, 0, 100);
                 break;
             case EStatType.Cleanliness:
-                cleanliness = Mathf.Max(cleanliness - amt, 0);
+                cleanliness = Mathf.Clamp(cleanliness + amt, 0, 100);
                 break; 
             case EStatType.Magic:
-                magic = Mathf.Max(magic - amt, 0);
+                magic = Mathf.Clamp(magic + amt, 0, 100);
+                break;
+            case EStatType.Mental:
+                mental = Mathf.Clamp(mental + amt, 0, 100);
                 break;
             default:
-                Debug.LogWarning(type + "Invalid stat name");
+                Debug.LogWarning(type + "Invalid Stat Type");
                 break;
         }
     }
+    
     
 }
