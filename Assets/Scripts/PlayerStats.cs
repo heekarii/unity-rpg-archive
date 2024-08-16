@@ -5,6 +5,21 @@ using UnityEngine.Serialization;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static PlayerStats Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(this);
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this);
+    }
+    
     public int health;
     public int hunger;
     public int cleanliness;
@@ -16,41 +31,35 @@ public class PlayerStats : MonoBehaviour
         cleanliness = 100;
         magic = 0;
     }
-
-    void IncreaseStat(string str, int amount)
+    
+    public void IncreaseMagic()
     {
-        switch (str)
-        {
-            case "health":
-                health += amount;
-                break;
-            case "hunger":
-                hunger += amount;
-                break;
-            case "cleanliness":
-                cleanliness += amount;
-                break;
-            case "magic":
-                magic += amount;
-                break;
-        }
+        magic += 5;
     }
-
-    void Decrease(string str, int amount)
+    
+    /// <summary>
+    /// 플레이어의 스탯을 감소시키는 함수
+    /// </summary>
+    /// <param name="stat">감소시킬 스탯의 이름</param>
+    /// <param name="amt">감소시킬 스탯의 양</param>
+    public void DecreaseStat(string stat, int amt)
     {
-        switch (str)
+        switch (stat)
         {
             case "health":
-                health -= amount;
+                health = Mathf.Max(health - amt, 0);
                 break;
             case "hunger":
-                hunger -= amount;
+                hunger = Mathf.Max(hunger - amt, 0);
                 break;
             case "cleanliness":
-                cleanliness -= amount;
-                break;
+                hunger = Mathf.Max(cleanliness - amt, 0);
+                break; 
             case "magic":
-                magic -= amount;
+                magic = Mathf.Max(magic - amt, 0);
+                break;
+            default:
+                Debug.LogWarning(stat + "Invalid stat name");
                 break;
         }
     }
