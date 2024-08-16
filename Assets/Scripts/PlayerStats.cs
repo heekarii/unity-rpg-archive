@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+public enum EStatType
+{
+    Health,
+    Hunger,
+    Cleanliness,
+    Magic
+}
 
 public class PlayerStats : MonoBehaviour
 {
@@ -40,26 +47,26 @@ public class PlayerStats : MonoBehaviour
     /// <summary>
     /// 플레이어의 스탯을 감소시키는 함수
     /// </summary>
-    /// <param name="stat">감소시킬 스탯의 이름</param>
+    /// <param name="type">감소시킬 스탯의 타입</param>
     /// <param name="amt">감소시킬 스탯의 양</param>
-    public void DecreaseStat(string stat, int amt)
+    public void DecreaseStat(EStatType type, int amt)
     {
-        switch (stat)
+        switch (type)
         {
-            case "health":
+            case EStatType.Health:
                 health = Mathf.Max(health - amt, 0);
                 break;
-            case "hunger":
+            case EStatType.Hunger:
                 hunger = Mathf.Max(hunger - amt, 0);
                 break;
-            case "cleanliness":
-                hunger = Mathf.Max(cleanliness - amt, 0);
+            case EStatType.Cleanliness:
+                cleanliness = Mathf.Max(cleanliness - amt, 0);
                 break; 
-            case "magic":
+            case EStatType.Magic:
                 magic = Mathf.Max(magic - amt, 0);
                 break;
             default:
-                Debug.LogWarning(stat + "Invalid stat name");
+                Debug.LogWarning(type + "Invalid stat name");
                 break;
         }
     }
