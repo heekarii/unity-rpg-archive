@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] PlyaerController player;
+    [SerializeField] PlayerController player;
     public static GameManager Instance;
 
     [SerializeField] private int day;
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<PlyaerController>();
+        player = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
