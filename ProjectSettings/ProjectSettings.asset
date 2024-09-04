@@ -654,10 +654,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: a963e93c-eea6-4a91-b638-14310c62de50
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
+  projectName: project_viichan_game
   organizationId: 
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
