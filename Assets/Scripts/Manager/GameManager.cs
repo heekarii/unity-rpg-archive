@@ -2,11 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] PlayerController player;
     public static GameManager Instance;
+
+    [Header("UI Elements")] 
+    [SerializeField] private Button settingButton;
+    
+    [SerializeField] PlayerController player;
 
     [SerializeField] private int day;
 
@@ -18,7 +23,6 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
         {
-            Destroy(this);
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this);
