@@ -24,6 +24,49 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Button washButton;
     [SerializeField] private Button magicTrainingButton;
 
+    // private Animator animator;
+    private bool moveSelectionEnabled = false;
+    public int health = 100;
+
+
+    public void EnableMoveSelection(bool enable)
+    {
+        moveSelectionEnabled = enable;
+    }
+
+    public void ExecuteMove(string move, EnemyController enemy)
+    {
+        if (moveSelectionEnabled)
+        {
+            EnableMoveSelection(false);
+
+            // animator.SetTrigger(move);
+
+            enemy.TakeDamage(20);
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+
+        if (health <= 0)
+        {
+            health = 0;
+            // animator.SetTrigger("Defeated");
+            // Handle player defeat logic
+        }
+        else
+        {
+            // animator.SetTrigger("TakeDamage");
+        }
+    }
+
+    public bool IsDefeated()
+    {
+        return health <= 0;
+    }
+    
     void Start()
     {
         magicBar.fillAmount = 0f;
@@ -31,6 +74,7 @@ public class PlayerController : MonoBehaviour
         hungerBar.fillAmount = 1f;
         cleanlinessBar.fillAmount = 1f;
         StartCoroutine(DecreaseStats());
+        //     animator = GetComponent<Animator>();
     }
 
     void OnEnable()
