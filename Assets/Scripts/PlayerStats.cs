@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Serialization;
+
 public enum EStatType
 {
     Health,
@@ -22,10 +24,10 @@ public class PlayerStats : MonoBehaviour
         }
         else if (Instance != this)
         {
-            Destroy(this);
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this);
+        
     }
     
     public float health;
@@ -33,6 +35,7 @@ public class PlayerStats : MonoBehaviour
     public float cleanliness;
     public float magic;
     public float mental;
+    public float lowStat;
     
     void Start()
     {
@@ -41,6 +44,8 @@ public class PlayerStats : MonoBehaviour
         cleanliness = 100;
         mental = 100;
         magic = 0;
+        
+        UpdateLowestStat();
     }
     
     /// <summary>
@@ -74,6 +79,19 @@ public class PlayerStats : MonoBehaviour
                 break;
         }
     }
-    
+
+    private void UpdateLowestStat()
+    {
+        float[] stats = { health, hunger, cleanliness, mental };
+
+        lowStat = Mathf.Min(stats);
+        Debug.Log("Lowest stat: " + lowStat); 
+
+    }
+
+    public float GetLowestStat()
+    {
+        return lowStat;
+    }
     
 }
