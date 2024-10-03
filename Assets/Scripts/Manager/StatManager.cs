@@ -13,23 +13,8 @@ public enum EStatType
     Mental
 }
 
-public class PlayerStats : MonoBehaviour
+public class StatManager : Singleton<StatManager>
 {
-    public static PlayerStats Instance;
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        DontDestroyOnLoad(this);
-        
-    }
-    
     public float health;
     public float hunger;
     public float cleanliness;
@@ -78,6 +63,7 @@ public class PlayerStats : MonoBehaviour
                 Debug.LogWarning(type + "Invalid Stat Type");
                 break;
         }
+        UpdateLowestStat();
     }
 
     private void UpdateLowestStat()

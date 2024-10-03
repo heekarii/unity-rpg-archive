@@ -12,11 +12,11 @@ public class EnemyController : MonoBehaviour
         // animator = GetComponent<Animator>();
     }
 
-    public void ExecuteMove(string move, PlayerController player)
+    public void ExecuteMove(string move)
     {
         // animator.SetTrigger(move);
 
-        player.TakeDamage(20);
+        TakeDamage(20);
     }
 
     public void TakeDamage(int damage)

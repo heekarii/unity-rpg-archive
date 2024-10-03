@@ -37,7 +37,7 @@ public class LobbyManager : MonoBehaviour
     [SerializeField] private float _lowStat;
     private List<AgeRange> ageRanges;
     
-    public struct AgeRange
+    private struct AgeRange
     {
         public int minAge;
         public int maxAge;
@@ -52,9 +52,7 @@ public class LobbyManager : MonoBehaviour
             this.normalMin = normalMin;
         }
     }
-
-
-
+    
     private void Start()
     {
         statPanel.SetActive(false);
@@ -87,9 +85,10 @@ public class LobbyManager : MonoBehaviour
 
     private void Update()
     {
-        _lowStat = PlayerStats.Instance.GetLowestStat();
+        _lowStat = StatManager.Instance.GetLowestStat();
         UpdateStatImage(_lowStat);
     }
+    
     private void InitializeRange()
     {
         ageRanges = new List<AgeRange>
@@ -122,11 +121,11 @@ public class LobbyManager : MonoBehaviour
     // UpdateImages 함수를 호출해주는 함수
     private void UpdateStatImages()
     {
-        float magic = PlayerStats.Instance.magic;
-        float health = PlayerStats.Instance.health;
-        float hunger = PlayerStats.Instance.hunger;
-        float cleanliness = PlayerStats.Instance.cleanliness;
-        float mental = PlayerStats.Instance.mental;
+        float magic = StatManager.Instance.magic;
+        float health = StatManager.Instance.health;
+        float hunger = StatManager.Instance.hunger;
+        float cleanliness = StatManager.Instance.cleanliness;
+        float mental = StatManager.Instance.mental;
         
         UpdateImages(healthImage, healthSprites, magic, health);
         UpdateImages(hungerImage, hungerSprites, magic, hunger);
@@ -159,7 +158,7 @@ public class LobbyManager : MonoBehaviour
     // 종합 스탯 표시
     private void UpdateStatImage(float val)
     {
-        float magic = PlayerStats.Instance.magic;
+        float magic = StatManager.Instance.magic;
         string status = GetStatus(magic, val);
 
         switch (status)
