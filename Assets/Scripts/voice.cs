@@ -4,13 +4,14 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using Application = UnityEngine.Application;
 
 public class Voice : MonoBehaviour // Changed the class name to Voice
 {
-    public Button recordButton; // Added
-    public Text responseText; // Added
-    public Dropdown microphoneDropdown; // Added
+    [SerializeField] Button recordButton; // Added
+    [SerializeField] TextMeshPro responseText; // Added
+    [SerializeField] Dropdown microphoneDropdown; // Added
 
     private AudioClip audioClip; // Added
     private bool isRecording = false; // Added
